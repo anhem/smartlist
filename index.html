@@ -12,15 +12,22 @@
 		<h1 id="header">SmartList</h1>
 		<div id="error"></div>
 		<div id="message"></div>
+		<div id="searchCategory">
+			<ul>
+				<li id="searchArtist"><a href="#">Artist</a></li>
+				<li id="searchWildcard"><a href="#">Artist Wildcard</a></li>
+				<li id="searchGenre"><a href="#">Genre</a></li>
+			</ul>		
+		</div>
 		<div id="searchType"></div>
 			<ul>
-			<li id="searchPopularity"><a href="#">Popularity</a></li>
-			<li id="searchYear"><a href="#">Year</a></li>
+				<li id="searchPopularity"><a href="#">Popularity</a></li>
+				<li id="searchYear"><a href="#">Year</a></li>
 			</ul>
 		<div id="search">
 			<form method="post">
 				<input type="text" id="playlist" placeholder="Enter playlist name">
-				<input type="search" id="searchArtist" placeholder="Search artist">
+				<input type="search" id="searchField" placeholder="Search">
 				<input type="number" id="amount" placeholder="No of tracks" min="1" max="100" >
 				<input type="number" id="yearFrom" placeholder="From">
 				<input type="number" id="yearTo" placeholder="To">
@@ -29,6 +36,9 @@
 				<li id="addSelected">
 					<a href="#">Add</a>
 				</li>
+				<li id="preview">
+					<a href="#">Preview</a>
+				</li>				
 				<li id="generate">
 					<a href="#">Generate</a>
 				</li>
@@ -37,8 +47,12 @@
 		<div id="selected">
 			<div id="selectedElement"></div>
 			<div id="selectedAmount"></div>
+			<div id="selectedCategory"></div>
 			<div id="selectedType"></div>
 		</div>
-		
+		<div id="previewData">
+			<div id="previewTrack"></div>
+			<div id="previewArtist"></div>	
+		</div>
 	</body>
 </html>

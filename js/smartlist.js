@@ -1,8 +1,14 @@
 var sp = getSpotifyApi(1);
 var models = sp.require('sp://import/scripts/api/models');
+var genreArray = [ ];
 var selectedArray = [ ];
 var POPULARITY = 'popularity';
 var YEAR = 'year';
+var GENRE = 'genre';
+var ARTIST = 'artist';
+var WILDCARD = 'wildcard';
+
+var searchCategory = ARTIST;
 var searchType = POPULARITY;
 
 exports.init = init;
@@ -10,14 +16,33 @@ exports.init = init;
 function init() {
 	$('#error').slideUp();
 	$('#message').slideUp();
-	searchTypeHandler();
-	artistSearchHandler();
+	loadGenreData();
+	searchArtistHandler();
 	addHandler();
 	generatePlayListHandler();
+	previewHandler();
+	categoryMenuHandler();
+	searchTypeMenuHandler();	
 	//test();
 }
 
-function searchTypeHandler() {
+function categoryMenuHandler() {
+	$('#searchArtist a').click(function () {
+		searchArtistHandler();
+		searchCategory = ARTIST;
+	});
+	$('#searchWildcard a').click(function () {
+		searchArtistHandler();
+		searchCategory = WILDCARD;
+		console.log(searchCategory);
+	});		
+	$('#searchGenre a').click(function () {
+		searchGenreHandler();
+		searchCategory = GENRE;
+	});			
+}
+
+function searchTypeMenuHandler() {
 	$('#yearFrom').hide();
 	$('#yearTo').hide();
 	$('#searchPopularity a').click(function () {
@@ -32,37 +57,53 @@ function searchTypeHandler() {
 	});			
 }
 
-function artistSearchHandler() {
-	$('#searchArtist').autocomplete({
-	        source: function(request, response) {
-	        	var result = [];
-	        	var searchParam = $('#searchArtist').val();
-        		var search = new models.Search(searchParam, {
-        		    'localResults' : models.LOCALSEARCHRESULTS.IGNORE,
-        		    'searchArtists' : true,
-        		    'searchAlbums' : false,
-        		    'searchTracks' : false,
-        		    'searchPlaylists' : false,
-        		    'pageSize' : 10,
-        		    'searchType' : models.SEARCHTYPE.SUGGESTION
+function loadGenreData() {
+	console.log('loading');
+    $.get("data/genre.txt", { },
+    function(data){   	
+    	genreArray = data.split("\n");
+    });
+}
+
+function searchGenreHandler() {
+	$('#searchField').autocomplete({
+		source: genreArray
+	});
+}
+
+function searchArtistHandler() {   
+    $('#searchField').autocomplete({
+        source: function(request, response) {
+        	console.log('searching...');
+        	var result = [];
+        	var searchParam = $('#searchField').val();
+    		var search = new models.Search(searchParam, {
+    		    'localResults' : models.LOCALSEARCHRESULTS.IGNORE,
+    		    'searchArtists' : true,
+    		    'searchAlbums' : false,
+    		    'searchTracks' : false,
+    		    'searchPlaylists' : false,
+    		    'pageSize' : 10,
+    		    'searchType' : models.SEARCHTYPE.SUGGESTION
+    		});
+        	search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+        	search.observe(models.EVENT.CHANGE, function() {
+        		search.artists.forEach(function(artist) {
+        			result.push(artist.name);
         		});
-	        	search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-	        	search.observe(models.EVENT.CHANGE, function() {
-	        		search.artists.forEach(function(artist) {
-	        			result.push(artist.name);
-	        		});
-	        		response(result);
-	        	});
-	        	search.appendNext();	        	
-	        },
-	 });
+        		response(result);
+        	});
+        	search.appendNext();	        	
+        },
+});    
 }
 
 function addHandler() {
 	$('#addSelected a').click(function (){
 		var data = {};
+		data.searchCategory = searchCategory;
 		data.searchType = searchType;
-		data.artist = $('#searchArtist').val();
+		data.search = $('#searchField').val();
 		data.amount = $('#amount').val();
 		if (searchType == YEAR) {
 			data.yearFrom = $('#yearFrom').val();
@@ -72,49 +113,75 @@ function addHandler() {
 		
 		$('#selectedElement').empty();
 		$('#selectedAmount').empty();
+		$('#selectedCategory').empty();
 		$('#selectedType').empty();
 		$(selectedArray).each(function(i, selected) {
-			$('#selectedElement').append('<div class="element">' + selected.artist + '</div>');
+			$('#selectedElement').append('<div class="element">' + selected.search + '</div>');
 			$('#selectedAmount').append('<div class="elementAmount">' + selected.amount + '</div>');
+			$('#selectedCategory').append('<div class="elementCategory">' + selected.searchCategory + '</div>');
 			if (selected.searchType == YEAR) {
-				$('#selectedType').append('<div class="elementYear">' + selected.yearFrom + '-' + selected.yearTo + '</div>');
+				$('#selectedType').append('<div class="elementType">' + selected.yearFrom + '-' + selected.yearTo + '</div>');
 			} else {
-				$('#selectedType').append('<div class="elementYear">' + selected.searchType + '</div>');
+				$('#selectedType').append('<div class="elementType">' + selected.searchType + '</div>');
 			}
 	    });		
 	});
 }
 
-function generatePlayListHandler() {
-	$('#generate a').click(function () {
-		$('#error').slideUp().empty();
-		$('#message').slideUp().empty();
-		var plName = $('#playlist').val();
-		if (plName.length == 0) {
-			$('#error').append('Missing playlist name').slideDown();	
-		} else if (selectedArray.length == 0) {
-			$('#error').append('Nothing added to generate playlist from').slideDown();
-		}
-		else {
-			var playlist = new models.Playlist(plName);
-			$(selectedArray).each(function(i, selected) {
-				generate(selected, playlist);
-		    });	
-			$('#message').append('Playlist generated').slideDown();
-		} 
+function previewHandler() {
+	$('#preview a').click(function () {
+		validateAndGeneratePlayList(true); 
 	});
 }
 
-function generate(selected, playlist) {
-	console.log('generating for ' + JSON.stringify(selected));
-	
-	var searchParam = '';
-	if (selected.searchType == POPULARITY) {
-		searchParam = selected.artist;
-	} else if (selected.searchType == YEAR) {
-		searchParam = selected.artist + ' year:' + selected.yearFrom + '-' + selected.yearTo;
+function generatePlayListHandler() {
+	$('#generate a').click(function () {
+		validateAndGeneratePlayList(false); 
+	});
+}
+
+function validateAndGeneratePlayList(simulate) {
+	$('#error').slideUp().empty();
+	$('#message').slideUp().empty();
+	var plName = $('#playlist').val();
+	if (plName.length == 0) {
+		$('#error').append('Missing playlist name').slideDown();	
+	} else if (selectedArray.length == 0) {
+		$('#error').append('Nothing added to generate playlist from').slideDown();
 	}
+	else {
+		if (simulate) {
+			$(selectedArray).each(function(i, selected) {
+				generate(selected, null, simulate);
+		    });	
+		} else {
+			var playlist = new models.Playlist(plName);
+			$(selectedArray).each(function(i, selected) {
+				generate(selected, playlist, simulate);
+		    });	
+		}
+		$('#message').append('Playlist generated').slideDown();
+	}
+}
+
+function generate(selected, playlist, simulate) {
+	console.log('generating for ' + JSON.stringify(selected));
+	var searchParam = '';
 	
+	if (selected.searchCategory == ARTIST || selected.searchCategory == WILDCARD) {
+		if (selected.searchType == POPULARITY) {
+			searchParam = 'artist:"' + selected.search + '"';
+		} else if (selected.searchType == YEAR) {
+			searchParam = 'artist:"' + selected.search + '" year:' + selected.yearFrom + '-' + selected.yearTo;
+		}		
+	} else if (selected.searchCategory == GENRE) {
+		if (selected.searchType == POPULARITY) {
+			searchParam = 'genre:"' + selected.search + '"';
+		} else if (selected.searchType == YEAR) {
+			searchParam = 'genre:"' + selected.search + '" year:' + selected.yearFrom + '-' + selected.yearTo;
+		}
+	}
+	console.log(searchParam);
 	var search = new models.Search(searchParam, {
 	    'localResults' : models.LOCALSEARCHRESULTS.IGNORE,
 	    'searchArtists' : true,
@@ -123,15 +190,31 @@ function generate(selected, playlist) {
 	    'searchPlaylists' : false,
 	    'pageSize' : 50,
 	    'searchType' : models.SEARCHTYPE.NORMAL
-	});
+	});		
 	search.localResults = models.LOCALSEARCHRESULTS.APPEND;
 	search.observe(models.EVENT.CHANGE, function() {
 		console.log('adding tracks');
 		var i = 0;
 		search.tracks.forEach(function(track) {
 			if (i < selected.amount) {
-				console.log(track);
-				playlist.add(track);
+				if (selected.searchCategory == ARTIST) {
+					if (track.artists.length == 1 && track.artists[0].data.name == selected.search) {
+						console.log(track);
+						if (simulate) {
+							$('#previewTrack').append('<div class="track">' + track.name + '</div>');
+							$('#previewArtist').append('<div class="artist">' + track.artists + '</div>');
+						} else {
+							playlist.add(track);	
+						}
+					}
+				} else {
+					console.log(track);
+					if (simulate) {
+						
+					} else {
+						playlist.add(track);
+					}
+				}
 				i++;
 			} else {
 				return;
@@ -158,7 +241,8 @@ function test() {
 	search.observe(models.EVENT.CHANGE, function() {
 		search.tracks.forEach(function(track) {
 			console.log(track);
-			console.log(track.artists);
+
+			console.log(track.artists[0].data.name);
 		});
 	});
 	search.appendNext();	  
