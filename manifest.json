@@ -1,0 +1,13 @@
+{
+	"BundleType": "Application",
+	"BundleIdentifier": "smartlist",
+	"AppIcon": {
+		"36x18": "tutorial.png"
+	},
+	"AppName": {
+		"en": "SmartList"
+	},
+	"SupportedLanguages": [
+		"en"
+	]
+}
