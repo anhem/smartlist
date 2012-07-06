@@ -64,9 +64,12 @@ function addHandler() {
 		data.searchType = searchType;
 		data.artist = $('#searchArtist').val();
 		data.amount = $('#amount').val();
-		data.yearFrom = $('#yearFrom').val();
-		data.yearTo = $('#yearTo').val();
+		if (searchType == YEAR) {
+			data.yearFrom = $('#yearFrom').val();
+			data.yearTo = $('#yearTo').val();
+		}
 		selectedArray.push(data);
+		
 		$('#selectedElement').empty();
 		$('#selectedAmount').empty();
 		$('#selectedType').empty();
