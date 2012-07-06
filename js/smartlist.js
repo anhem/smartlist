@@ -1,16 +1,35 @@
 var sp = getSpotifyApi(1);
 var models = sp.require('sp://import/scripts/api/models');
 var selectedArray = [ ];
+var POPULARITY = 'popularity';
+var YEAR = 'year';
+var searchType = POPULARITY;
 
 exports.init = init;
 
 function init() {
 	$('#error').slideUp();
 	$('#message').slideUp();
+	searchTypeHandler();
 	artistSearchHandler();
 	addHandler();
 	generatePlayListHandler();
-	test();
+	//test();
+}
+
+function searchTypeHandler() {
+	$('#yearFrom').hide();
+	$('#yearTo').hide();
+	$('#searchPopularity a').click(function () {
+		$('#yearFrom').fadeOut('fast');
+		$('#yearTo').fadeOut('fast');
+		searchType = POPULARITY;
+	});
+	$('#searchYear a').click(function () {
+		$('#yearFrom').fadeIn('fast');
+		$('#yearTo').fadeIn('fast');
+		searchType = YEAR;
+	});			
 }
 
 function artistSearchHandler() {
@@ -42,14 +61,23 @@ function artistSearchHandler() {
 function addHandler() {
 	$('#addSelected a').click(function (){
 		var data = {};
+		data.searchType = searchType;
 		data.artist = $('#searchArtist').val();
 		data.amount = $('#amount').val();
+		data.yearFrom = $('#yearFrom').val();
+		data.yearTo = $('#yearTo').val();
 		selectedArray.push(data);
-		$('#selected').empty();
+		$('#selectedElement').empty();
 		$('#selectedAmount').empty();
+		$('#selectedType').empty();
 		$(selectedArray).each(function(i, selected) {
-			$('#selected').append('<div class="element">' + selected.artist + '</div>');
+			$('#selectedElement').append('<div class="element">' + selected.artist + '</div>');
 			$('#selectedAmount').append('<div class="elementAmount">' + selected.amount + '</div>');
+			if (selected.searchType == YEAR) {
+				$('#selectedType').append('<div class="elementYear">' + selected.yearFrom + '-' + selected.yearTo + '</div>');
+			} else {
+				$('#selectedType').append('<div class="elementYear">' + selected.searchType + '</div>');
+			}
 	    });		
 	});
 }
@@ -75,8 +103,16 @@ function generatePlayListHandler() {
 }
 
 function generate(selected, playlist) {
-	console.log('generating for ' + selected.artist);
-	var search = new models.Search(selected.artist, {
+	console.log('generating for ' + JSON.stringify(selected));
+	
+	var searchParam = '';
+	if (selected.searchType == POPULARITY) {
+		searchParam = selected.artist;
+	} else if (selected.searchType == YEAR) {
+		searchParam = selected.artist + ' year:' + selected.yearFrom + '-' + selected.yearTo;
+	}
+	
+	var search = new models.Search(searchParam, {
 	    'localResults' : models.LOCALSEARCHRESULTS.IGNORE,
 	    'searchArtists' : true,
 	    'searchAlbums' : false,
@@ -104,21 +140,22 @@ function generate(selected, playlist) {
 
 function test() {
 	console.log('test');
-	var searchParam = 'disturbed';
+	var searchParam = 'disturbed year:1987-2002';
 	var search = new models.Search(searchParam, {
 	    'localResults' : models.LOCALSEARCHRESULTS.IGNORE,
 	    'searchArtists' : true,
 	    'searchAlbums' : false,
-	    'searchTracks' : false,
+	    'searchTracks' : true,
 	    'searchPlaylists' : false,
-	    'pageSize' : 10,
+	    'pageSize' : 50,
 	    'searchType' : models.SEARCHTYPE.NORMAL
 	});
 	console.log(search);
 	search.localResults = models.LOCALSEARCHRESULTS.APPEND;
 	search.observe(models.EVENT.CHANGE, function() {
-		search.artists.forEach(function(artist) {
-			console.log(artist);
+		search.tracks.forEach(function(track) {
+			console.log(track);
+			console.log(track.artists);
 		});
 	});
 	search.appendNext();	  

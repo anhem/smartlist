@@ -12,12 +12,19 @@
 		<h1 id="header">SmartList</h1>
 		<div id="error"></div>
 		<div id="message"></div>
+		<div id="searchType"></div>
+			<ul>
+			<li id="searchPopularity"><a href="#">Popularity</a></li>
+			<li id="searchYear"><a href="#">Year</a></li>
+			</ul>
 		<div id="search">
 			<form method="post">
 				<input type="text" id="playlist" placeholder="Enter playlist name">
-				<input type="text" id="searchArtist" placeholder="Search artist">
-				<input type="number" id="amount" placeholder="No of tracks">
-				</form>
+				<input type="search" id="searchArtist" placeholder="Search artist">
+				<input type="number" id="amount" placeholder="No of tracks" min="1" max="100" >
+				<input type="number" id="yearFrom" placeholder="From">
+				<input type="number" id="yearTo" placeholder="To">
+			</form>
 			<ul>
 				<li id="addSelected">
 					<a href="#">Add</a>
@@ -27,7 +34,11 @@
 				</li>
 			</ul>
 		</div>
-		<div id="selected"></div>
-		<div id="selectedAmount"></div>
+		<div id="selected">
+			<div id="selectedElement"></div>
+			<div id="selectedAmount"></div>
+			<div id="selectedYear"></div>
+		</div>
+		
 	</body>
 </html>
