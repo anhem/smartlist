@@ -264,7 +264,6 @@ function clearHandler() {
 		selectedArray = [ ];	
 		$('#selected').empty();
 		$('#previewData').empty();
-		init();
 	});
 }
 
