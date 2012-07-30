@@ -118,9 +118,7 @@ function addHandler() {
 
 function removeHandler() {
 	$('.remove').click(function (){
-		console.log($(this).parent());
 		var row_idx = $(this).parent().prevAll().length;
-		console.log(row_idx);
 		selectedArray.splice(row_idx,1);
 		drawSelectedData();
 	});
