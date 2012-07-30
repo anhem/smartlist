@@ -1,0 +1,17 @@
+.selectedData {
+	clear: both;
+}
+
+.selectedData div {
+	float: left;
+	width: 10%;
+}
+
+#previewData {
+	clear:both;
+}
+
+#previewData div {
+	float: left;
+    	width: 50%;
+}
