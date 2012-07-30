@@ -103,17 +103,45 @@ function searchArtistHandler() {
 
 function addHandler() {
 	$('#addSelected a').click(function (){
+		$('#error').slideUp().empty();
+		var isValid = true;
 		var data = {};
 		data.searchCategory = searchCategory;
 		data.searchType = searchType;
 		data.search = $('#searchField').val();
 		data.amount = $('#amount').val();
+		
+		if (data.search.length < 1) {
+			isValid = false;
+			$('#error').append('No search parameter defined <br />');
+		}
+		if (data.amount.length < 1) {
+			isValid = false;
+			$('#error').append('Number of tracks not defined <br />');
+		}		
+		
 		if (searchType == YEAR) {
 			data.yearFrom = $('#yearFrom').val();
 			data.yearTo = $('#yearTo').val();
+			if (data.yearFrom.length < 1) {
+				isValid = false;
+				$('#error').append('From year not defined <br />');
+			}
+			if (data.yearTo.length < 1) {
+				isValid = false;
+				$('#error').append('To year not defined <br />');
+			}	
+			if (parseInt(data.yearTo) < parseInt(data.yearFrom)) {
+				isValid = false;
+				$('#error').append('From year is larger than To year <br />');
+			}
 		}
-		selectedArray.push(data);
-		drawSelectedData();
+		if (isValid) {
+			selectedArray.push(data);
+			drawSelectedData();
+		} else {
+			$('#error').slideDown();
+		}
 	});
 }
 
@@ -155,18 +183,23 @@ function drawSelectedData() {
 
 function previewHandler() {
 	$('#preview a').click(function () {
+		$('#error').slideUp().empty();
+		$('#message').slideUp().empty();		
 		$('#previewData').empty();
-		validateAndGeneratePlayList(true); 
+		$(selectedArray).each(function(i, selected) {
+			generate(selected, null, false);
+	    });	 
+		$('#message').append('Preview generated').slideDown();
 	});
 }
 
 function generatePlayListHandler() {
 	$('#generate a').click(function () {
-		validateAndGeneratePlayList(false); 
+		validateAndGeneratePlayList(); 
 	});
 }
 
-function validateAndGeneratePlayList(simulate) {
+function validateAndGeneratePlayList() {
 	$('#error').slideUp().empty();
 	$('#message').slideUp().empty();
 	var plName = $('#playlist').val();
@@ -176,21 +209,15 @@ function validateAndGeneratePlayList(simulate) {
 		$('#error').append('Nothing added to generate playlist from').slideDown();
 	}
 	else {
-		if (simulate) {
-			$(selectedArray).each(function(i, selected) {
-				generate(selected, null, simulate);
-		    });	
-		} else {
-			var playlist = new models.Playlist(plName);
-			$(selectedArray).each(function(i, selected) {
-				generate(selected, playlist, simulate);
-		    });	
-		}
+		var playlist = new models.Playlist(plName);
+		$(selectedArray).each(function(i, selected) {
+			generate(selected, playlist, true);
+	    });	
 		$('#message').append('Playlist generated').slideDown();
 	}
 }
 
-function generate(selected, playlist, simulate) {
+function generate(selected, playlist, createPlayList) {
 	console.log('generating for ' + JSON.stringify(selected));
 	var searchParam = '';
 	
@@ -226,7 +253,7 @@ function generate(selected, playlist, simulate) {
 				console.log(track);
 				if (selected.searchCategory == ARTIST) {
 					if (track.artists.length == 1 && track.artists[0].data.name == selected.search) {
-						if (simulate) {
+						if (!createPlayList) {
 							$('#previewData').append(
 									'<tr class=previewTrack>' +
 									'<td class="name">' + track.name + '</td>' +
