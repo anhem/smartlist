@@ -23,6 +23,7 @@ function init() {
 	previewHandler();
 	categoryMenuHandler();
 	searchTypeMenuHandler();	
+	clearHandler();
 	
 	$('#playlist').val('SmartList');
 	//test();
@@ -255,6 +256,16 @@ function generate(selected, playlist, simulate) {
 		});
 	});
 	search.appendNext();				
+}
+
+function clearHandler() {
+	$('#clear a').click(function (){
+		genreArray = [ ];
+		selectedArray = [ ];	
+		$('#selected').empty();
+		$('#previewData').empty();
+		init();
+	});
 }
 
 function test() {
