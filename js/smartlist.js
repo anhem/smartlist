@@ -147,7 +147,8 @@ function addHandler() {
 
 function removeHandler() {
 	$('.remove').click(function() {
-		var row_idx = $(this).parent().prevAll().length;
+		var row_idx = $(this).parent().prevAll().length - 1;
+		console.log(row_idx);
 		selectedArray.splice(row_idx, 1);
 		DisplayRules();
 	});
@@ -155,34 +156,34 @@ function removeHandler() {
 
 function DisplayRules() {
 	$('#rules').empty();
-	
+	$('#rules').append('<tr><th>Artist/Genre</th><th>Tracks</th><th>Category</th><th>Type</th><th></th></tr>');
 	$(selectedArray).each(
 			function(i, selected) {
 				if (selected.searchType == YEAR) {
 					$('#rules').append(
-							'<tr class=selectedData>' + '<td class="element">'
-									+ selected.search + '</td>'
-									+ '<td class="elementAmount">'
-									+ selected.amount + '</td>'
-									+ '<td class="elementCategory">'
-									+ selected.searchCategory + '</td>'
-									+ '<td class="elementType">'
-									+ selected.yearFrom + '-' + selected.yearTo
-									+ '</td>'
-									+ '<td class="remove">remove</td>'
-									+ '</tr>');
+						'<tr class=selectedData>' + '<td class="element">'
+						+ selected.search + '</td>'
+						+ '<td class="elementAmount">'
+						+ selected.amount + '</td>'
+						+ '<td class="elementCategory">'
+						+ selected.searchCategory + '</td>'
+						+ '<td class="elementType">'
+						+ selected.yearFrom + '-' + selected.yearTo
+						+ '</td>'
+						+ '<td class="remove"><a href="#">remove</a></td>'
+						+ '</tr>');
 				} else {
 					$('#rules').append(
-							'<tr class=selectedData>' + '<td class="element">'
-									+ selected.search + '</td>'
-									+ '<td class="elementAmount">'
-									+ selected.amount + '</td>'
-									+ '<td class="elementCategory">'
-									+ selected.searchCategory + '</td>'
-									+ '<td class="elementType">'
-									+ selected.searchType + '</td>'
-									+ '<td class="remove">remove</td>'
-									+ '</tr>');
+						'<tr class=selectedData>' + '<td class="element">'
+						+ selected.search + '</td>'
+						+ '<td class="elementAmount">'
+						+ selected.amount + '</td>'
+						+ '<td class="elementCategory">'
+						+ selected.searchCategory + '</td>'
+						+ '<td class="elementType">'
+						+ selected.searchType + '</td>'
+						+ '<td class="remove"><a href="#">remove</a></td>'
+						+ '</tr>');
 				}
 			});
 	removeHandler();

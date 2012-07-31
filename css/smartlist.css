@@ -10,3 +10,17 @@
 #previewData {
 	clear:both;
 }
+
+#rules {
+	width: 100%;
+	table-layout:fixed;
+}
+
+#rules td {
+	text-overflow: ellipsis; 
+	overflow: hidden;
+}
+
+#rules tr:nth-child(even) {
+    background-color: #2E2E2E;
+}
