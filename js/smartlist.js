@@ -138,7 +138,7 @@ function addHandler() {
 		}
 		if (isValid) {
 			selectedArray.push(data);
-			drawSelectedData();
+			DisplayRules();
 		} else {
 			$('#error').slideDown();
 		}
@@ -149,12 +149,13 @@ function removeHandler() {
 	$('.remove').click(function() {
 		var row_idx = $(this).parent().prevAll().length;
 		selectedArray.splice(row_idx, 1);
-		drawSelectedData();
+		DisplayRules();
 	});
 }
 
-function drawSelectedData() {
+function DisplayRules() {
 	$('#rules').empty();
+	
 	$(selectedArray).each(
 			function(i, selected) {
 				if (selected.searchType == YEAR) {

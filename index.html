@@ -3,13 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<title>SmartList</title>
-		
         <style>
         	@import url('sp://import/css/adam.css');
             @import url('sp://import/css/list.css');
             @import url('sp://smartlist/css/smartlist.css');
         </style>		
-		
 		<script src="js/jquery-1.7.2.min.js"></script>
 		<script src="js/jquery-ui-1.8.21.custom.min.js"></script>
 	</head>
@@ -35,8 +33,8 @@
 				<input type="text" id="playlist" placeholder="Enter playlist name">
 				<input type="search" id="searchField" placeholder="Search">
 				<input type="number" id="amount" placeholder="No of tracks" min="1" max="100" >
-				<input type="number" id="yearFrom" placeholder="From">
-				<input type="number" id="yearTo" placeholder="To">
+				<input type="number" id="yearFrom" placeholder="From" min="1">
+				<input type="number" id="yearTo" placeholder="To" min="1">
 			</form>
 			<ul>
 				<li id="add">
@@ -53,8 +51,7 @@
 				</li>				
 			</ul>
 		</div>
-		<table id="rules">
-		</table>
+		<table id="rules"></table>
 		<div id="tracks"></div>
 	</body>
 </html>
