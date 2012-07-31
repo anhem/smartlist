@@ -1,5 +1,6 @@
 var sp = getSpotifyApi(1);
 var models = sp.require('sp://import/scripts/api/models');
+var views = sp.require('sp://import/scripts/api/views'); 
 var genreArray = [ ];
 var selectedArray = [ ];
 var POPULARITY = 'popularity';
@@ -185,10 +186,13 @@ function previewHandler() {
 	$('#preview a').click(function () {
 		$('#error').slideUp().empty();
 		$('#message').slideUp().empty();		
-		$('#previewData').empty();
+		$('#previewTracks').empty();
+		var playlist = new models.Playlist();
 		$(selectedArray).each(function(i, selected) {
-			generate(selected, null, false);
+			generate(selected, playlist);
 	    });	 
+	    var playlistView = new views.List(playlist);
+	    $('#previewTracks').append(playlistView.node);
 		$('#message').append('Preview generated').slideDown();
 	});
 }
@@ -211,13 +215,13 @@ function validateAndGeneratePlayList() {
 	else {
 		var playlist = new models.Playlist(plName);
 		$(selectedArray).each(function(i, selected) {
-			generate(selected, playlist, true);
+			generate(selected, playlist);
 	    });	
 		$('#message').append('Playlist generated').slideDown();
 	}
 }
 
-function generate(selected, playlist, createPlayList) {
+function generate(selected, playlist) {
 	console.log('generating for ' + JSON.stringify(selected));
 	var searchParam = '';
 	
@@ -253,28 +257,10 @@ function generate(selected, playlist, createPlayList) {
 				console.log(track);
 				if (selected.searchCategory == ARTIST) {
 					if (track.artists.length == 1 && track.artists[0].data.name == selected.search) {
-						if (!createPlayList) {
-							$('#previewData').append(
-									'<tr class=previewTrack>' +
-									'<td class="name">' + track.name + '</td>' +
-									'<td class="artists">' + track.artists + '</td>' +
-									'</tr>'
-							);	
-						} else {
-							playlist.add(track);	
-						}
-					}
-				} else {
-					if (simulate) {
-						$('#previewData').append(
-								'<tr class=previewTrack>' +
-								'<td class="name">' + track.name + '</td>' +
-								'<td class="artists">' + track.artists + '</td>' +
-								'</tr>'
-						);						
-					} else {
 						playlist.add(track);
 					}
+				} else {
+					playlist.add(track);
 				}
 				i++;
 			} else {
@@ -290,7 +276,7 @@ function clearHandler() {
 		genreArray = [ ];
 		selectedArray = [ ];	
 		$('#selected').empty();
-		$('#previewData').empty();
+		$('#previewTracks').empty();
 	});
 }
 

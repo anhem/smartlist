@@ -3,8 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>SmartList</title>
-		<link rel="stylesheet" href="sp://import/css/adam.css">
-		<link rel="stylesheet" href="css/smartlist.css">
+		
+        <style>
+        	@import url('sp://import/css/adam.css');
+            @import url('sp://import/css/list.css');
+            @import url('sp://smartlist/css/smartlist.css');
+        </style>		
+		
 		<script src="js/jquery-1.7.2.min.js"></script>
 		<script src="js/jquery-ui-1.8.21.custom.min.js"></script>
 	</head>
@@ -19,11 +24,12 @@
 				<li id="searchGenre"><a href="#">Genre</a></li>
 			</ul>		
 		</div>
-		<div id="searchType"></div>
+		<div id="searchType">
 			<ul>
 				<li id="searchPopularity"><a href="#">Popularity</a></li>
 				<li id="searchYear"><a href="#">Year</a></li>
 			</ul>
+		</div>
 		<div id="search">
 			<form method="post">
 				<input type="text" id="playlist" placeholder="Enter playlist name">
@@ -49,7 +55,6 @@
 		</div>
 		<table id="selected">
 		</table>
-		<table id="previewData">
-		</table>
+		<div id="previewTracks"></div>
 	</body>
 </html>
