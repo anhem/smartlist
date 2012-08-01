@@ -14,6 +14,7 @@
 .selectors {
 	clear: none;
 	float: left;
+	padding: 0px 25px 20px 0px;
 }
 
 .selected {
@@ -41,6 +42,7 @@ li {
 }
 
 #rules {
+	
 	width: 100%;
 	table-layout:fixed;
 }
@@ -77,6 +79,7 @@ li {
 }
 
 .menu {
+	clear: both;
 	padding: 10px 0px;
 }
 

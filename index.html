@@ -17,34 +17,35 @@
 			<div id="error"></div>
 			<div id="message"></div>
 		</div>	
-		<div class="container selectors">
-			<div id="searchCategory">
-				<h4>Category</h4>
-				<ul>
-					<li id="searchArtist"><a href="#">Artist</a></li>
-					<li id="searchWildcard"><a href="#">Artist Wildcard</a></li>
-					<li id="searchGenre"><a href="#">Genre</a></li>
-				</ul>		
+		<div class="container">		
+			<div class="selectors">
+				<div id="searchCategory">
+					<h4>Category</h4>
+					<ul>
+						<li id="searchArtist"><a href="#">Artist</a></li>
+						<li id="searchWildcard"><a href="#">Artist Wildcard</a></li>
+						<li id="searchGenre"><a href="#">Genre</a></li>
+					</ul>		
+				</div>
+				<div id="searchType">
+					<h4>Type</h4>
+					<ul>
+						<li id="searchPopularity"><a href="#">Popularity</a></li>
+						<li id="searchYear"><a href="#">Year</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		<div class="container selectors">
-			<div id="searchType">
-				<h4>Type</h4>
-				<ul>
-					<li id="searchPopularity"><a href="#">Popularity</a></li>
-					<li id="searchYear"><a href="#">Year</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="container">
-			<div id="search">
-				<h4>Options</h4>
-				
-				Search: <input type="search" id="searchField" placeholder="Search">
-				Number of tracks: <input type="number" id="amount" placeholder="#" min="1" max="100" >
-				From year: <input type="number" id="yearFrom" min="1">
-				To year: <input type="number" id="yearTo" min="1">
-			</div>
+			<div class="selectors">
+				<div id="search">
+					<h4>Options</h4>
+					<table>
+					<tr><td>Search</td><td><input type="search" id="searchField" placeholder="Search"><br /></td></tr>
+					<tr><td>Number of tracks</td><td><input type="number" id="amount" placeholder="#" min="1" max="100" ></td></tr>
+					<tr><td>From year</td><td><input type="number" id="yearFrom" min="1"></td></tr>
+					<tr><td>To year</td><td><input type="number" id="yearTo" min="1"></td></tr>
+					</table>
+				</div>
+			</div>				
 			<div class="menu">
 				<ul>
 					<li id="add">
@@ -58,7 +59,7 @@
 					</li>				
 				</ul>
 			</div>
-		</div>	
+		</div>
 		<div class="container" id="rulesContainer">
 			<h3 class="header">Rules</h3>
 			<table id="rules">
@@ -73,7 +74,7 @@
 		</div>
 		<div class="container">
 			<h3 class="header">Tracks</h3>
-			<div class="menu">
+			<div>
 				<input type="text" id="playlist" placeholder="Enter playlist name">
 				<button class="sp-button" id="create">Create playlist</button>
 			</div>		
