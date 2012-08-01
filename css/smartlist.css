@@ -11,14 +11,19 @@
  	overflow:auto;
 }
 
-.empty {
-	text-align:center;
-	color: #3D3D3D;
-	font-style: italic;
+.selectors {
+	clear: none;
+	float: left;
 }
 
 .selected {
 	background-color: black;
+}
+
+.empty {
+	text-align:center;
+	color: #3D3D3D;
+	font-style: italic;
 }
 
 ul a {
@@ -71,8 +76,5 @@ li {
 	color: #E41B17;
 }
 
-.selectors {
-	clear: none;
-	float: left;
-}
+
 

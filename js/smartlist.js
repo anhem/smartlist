@@ -206,13 +206,17 @@ function generateHandler() {
 		$('#message').empty().hide();
 		$('#error').empty().hide();
 		$('#tracks').empty();
-		var playlist = new models.Playlist();
-		$(selectedArray).each(function(i, selected) {
-			createPlayList(selected, playlist);
-		});
-		var playlistView = new views.List(playlist);
-		$('#tracks').append(playlistView.node);
-		$('#message').append('playlist generated').fadeIn();
+		if (selectedArray.length > 0) {
+			var playlist = new models.Playlist();
+			$(selectedArray).each(function(i, selected) {
+				createPlayList(selected, playlist);
+			});
+			var playlistView = new views.List(playlist);
+			$('#tracks').append(playlistView.node);
+			$('#message').append('playlist generated').fadeIn();
+		} else {
+			$('#error').append('No rules added').fadeIn();
+		}
 	});
 }
 
