@@ -15,8 +15,8 @@ var searchType = POPULARITY;
 exports.init = init;
 
 function init() {
-	$('#error').slideUp();
-	$('#message').slideUp();
+	$('#error').hide();
+	$('#message').hide();
 	
 	loadGenreData();
 	searchArtistHandler();
@@ -115,7 +115,8 @@ function searchArtistHandler() {
 
 function addHandler() {
 	$('#add a').click(function() {
-		$('#error').slideUp().empty();
+		$('#message').empty().hide();
+		$('#error').empty().hide();
 		var isValid = true;
 		var data = {};
 		data.searchCategory = searchCategory;
@@ -125,11 +126,11 @@ function addHandler() {
 
 		if (data.search.length < 1) {
 			isValid = false;
-			$('#error').append('No search parameter defined <br />');
+			$('#error').append('Search parameter missing <br />');
 		}
 		if (data.amount.length < 1) {
 			isValid = false;
-			$('#error').append('Number of tracks not defined <br />');
+			$('#error').append('Number of tracks missing <br />');
 		}
 
 		if (searchType == YEAR) {
@@ -137,11 +138,11 @@ function addHandler() {
 			data.yearTo = $('#yearTo').val();
 			if (data.yearFrom.length < 1) {
 				isValid = false;
-				$('#error').append('From year not defined <br />');
+				$('#error').append('From year missing <br />');
 			}
 			if (data.yearTo.length < 1) {
 				isValid = false;
-				$('#error').append('To year not defined <br />');
+				$('#error').append('To year missing <br />');
 			}
 			if (parseInt(data.yearTo) < parseInt(data.yearFrom)) {
 				isValid = false;
@@ -151,8 +152,9 @@ function addHandler() {
 		if (isValid) {
 			selectedArray.push(data);
 			DisplayRules();
+			$('#message').append('Rule added').fadeIn();
 		} else {
-			$('#error').slideDown();
+			$('#error').fadeIn();
 		}
 	});
 }
@@ -202,8 +204,8 @@ function DisplayRules() {
 
 function generateHandler() {
 	$('#generate a').click(function() {
-		$('#error').slideUp().empty();
-		$('#message').slideUp().empty();
+		$('#message').empty().hide();
+		$('#error').empty().hide();
 		$('#tracks').empty();
 		var playlist = new models.Playlist();
 		$(selectedArray).each(function(i, selected) {
@@ -211,7 +213,7 @@ function generateHandler() {
 		});
 		var playlistView = new views.List(playlist);
 		$('#tracks').append(playlistView.node);
-		$('#message').append('Preview createPlayListd').slideDown();
+		$('#message').append('playlist generated').fadeIn();
 	});
 }
 
@@ -222,20 +224,20 @@ function createPlayListHandler() {
 }
 
 function validateAndcreatePlayList() {
-	$('#error').slideUp().empty();
-	$('#message').slideUp().empty();
+	$('#message').empty().hide();
+	$('#error').empty().hide();
 	var plName = $('#playlist').val();
 	if (plName.length == 0) {
-		$('#error').append('Missing playlist name').slideDown();
+		$('#error').append('Missing playlist name').fadeIn();
 	} else if (selectedArray.length == 0) {
-		$('#error').append('Nothing added to createPlayList playlist from')
-				.slideDown();
+		$('#error').append('No rules added')
+				.fadeIn();
 	} else {
 		var playlist = new models.Playlist(plName);
 		$(selectedArray).each(function(i, selected) {
 			createPlayList(selected, playlist);
 		});
-		$('#message').append('Playlist createPlayListd').slideDown();
+		$('#message').append('Playlist created').fadeIn();
 	}
 }
 
@@ -299,5 +301,7 @@ function clearHandler() {
 		selectedArray = [];
 		$('#rules').find('tr:gt(0)').remove();
 		$('#tracks').empty();
+		$('#message').empty().hide();
+		$('#error').empty().hide();		
 	});
 }

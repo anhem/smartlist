@@ -54,4 +54,12 @@ li {
 	clear: both;
 }
 
+#message {
+	color: green;
+}
+
+#error {
+	color: #E41B17;
+}
+
 
