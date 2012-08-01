@@ -17,32 +17,38 @@ exports.init = init;
 function init() {
 	$('#error').slideUp();
 	$('#message').slideUp();
+	
 	loadGenreData();
 	searchArtistHandler();
 	addHandler();
-	createPlayListPlayListHandler();
+	createPlayListHandler();
 	generateHandler();
 	categoryMenuHandler();
 	searchTypeMenuHandler();
 	clearHandler();
-
 	$('#playlist').val('SmartList');
-	// test();
 }
 
 function categoryMenuHandler() {
 	$('#searchArtist a').click(function() {
 		searchArtistHandler();
 		searchCategory = ARTIST;
+		console.log($('#searchCategory li'));
+		$('#searchCategory li').removeClass('selected');
+		$(this).parent().addClass('selected');
 	});
 	$('#searchWildcard a').click(function() {
 		searchArtistHandler();
 		searchCategory = WILDCARD;
 		console.log(searchCategory);
+		$('#searchCategory li').removeClass('selected');
+		$(this).parent().addClass('selected');
 	});
 	$('#searchGenre a').click(function() {
 		searchGenreHandler();
 		searchCategory = GENRE;
+		$('#searchCategory li').removeClass('selected');
+		$(this).parent().addClass('selected');
 	});
 }
 
@@ -53,11 +59,15 @@ function searchTypeMenuHandler() {
 		$('#yearFrom').fadeOut('fast');
 		$('#yearTo').fadeOut('fast');
 		searchType = POPULARITY;
+		$('#searchType li').removeClass('selected');
+		$(this).parent().addClass('selected');		
 	});
 	$('#searchYear a').click(function() {
 		$('#yearFrom').fadeIn('fast');
 		$('#yearTo').fadeIn('fast');
 		searchType = YEAR;
+		$('#searchType li').removeClass('selected');
+		$(this).parent().addClass('selected');			
 	});
 }
 
@@ -203,7 +213,7 @@ function generateHandler() {
 	});
 }
 
-function createPlayListPlayListHandler() {
+function createPlayListHandler() {
 	$('#create a').click(function() {
 		validateAndcreatePlayList();
 	});
@@ -288,28 +298,4 @@ function clearHandler() {
 		$('#rules').find('tr:gt(0)').remove();
 		$('#tracks').empty();
 	});
-}
-
-function test() {
-	console.log('test');
-	var searchParam = 'disturbed year:1987-2002';
-	var search = new models.Search(searchParam, {
-		'localResults' : models.LOCALSEARCHRESULTS.IGNORE,
-		'searchArtists' : true,
-		'searchAlbums' : false,
-		'searchTracks' : true,
-		'searchPlaylists' : false,
-		'pageSize' : 50,
-		'searchType' : models.SEARCHTYPE.NORMAL
-	});
-	console.log(search);
-	search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-	search.observe(models.EVENT.CHANGE, function() {
-		search.tracks.forEach(function(track) {
-			console.log(track);
-
-			console.log(track.artists[0].data.name);
-		});
-	});
-	search.appendNext();
 }
