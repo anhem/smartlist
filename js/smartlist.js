@@ -30,6 +30,7 @@ function init() {
 }
 
 function categoryMenuHandler() {
+	$('#searchArtist a').parent().addClass('selected');
 	$('#searchArtist a').click(function() {
 		searchArtistHandler();
 		searchCategory = ARTIST;
@@ -55,6 +56,7 @@ function categoryMenuHandler() {
 function searchTypeMenuHandler() {
 	$('#yearFrom').hide();
 	$('#yearTo').hide();
+	$('#searchPopularity a').parent().addClass('selected');
 	$('#searchPopularity a').click(function() {
 		$('#yearFrom').fadeOut('fast');
 		$('#yearTo').fadeOut('fast');

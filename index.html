@@ -13,8 +13,8 @@
 	</head>
 	<body onload="sp = getSpotifyApi(1); am = sp.require('js/smartlist'); am.init();">
 		<h1 class="header">SmartList</h1>
-		<div id="error"></div>
-		<div id="message"></div>
+		<div id="error" class=container></div>
+		<div id="message" class=container></div>
 		<div class="container">
 			<div id="searchCategory">
 				<h4>Category</h4>
@@ -60,7 +60,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container" id="rulesContainer">
 			<h3 class="header">Rules</h3>
 			<table id="rules">
 				<tr>
@@ -74,7 +74,7 @@
 		</div>
 		<div class="container">
 			<h3 class="header">Tracks</h3>
-			<div id="tracks"><div class="empty">- empty - </div></div>
+			<div id="tracks"></div>
 		</div>
 	</body>
 </html>
