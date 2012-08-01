@@ -31,6 +31,10 @@ li {
 	border-radius: 10px 10px 10px 10px;
 }
 
+#notifications {
+	height: 18px;
+}
+
 #rules {
 	width: 100%;
 	table-layout:fixed;

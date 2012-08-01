@@ -54,19 +54,19 @@ function categoryMenuHandler() {
 }
 
 function searchTypeMenuHandler() {
-	$('#yearFrom').hide();
-	$('#yearTo').hide();
+	$('#yearFrom').prop('disabled', true);
+	$('#yearTo').prop('disabled', true);
 	$('#searchPopularity a').parent().addClass('selected');
 	$('#searchPopularity a').click(function() {
-		$('#yearFrom').fadeOut('fast');
-		$('#yearTo').fadeOut('fast');
+		$('#yearFrom').prop('disabled', true);
+		$('#yearTo').prop('disabled', true);
 		searchType = POPULARITY;
 		$('#searchType li').removeClass('selected');
 		$(this).parent().addClass('selected');		
 	});
 	$('#searchYear a').click(function() {
-		$('#yearFrom').fadeIn('fast');
-		$('#yearTo').fadeIn('fast');
+		$('#yearFrom').prop('disabled', false);
+		$('#yearTo').prop('disabled', false);
 		searchType = YEAR;
 		$('#searchType li').removeClass('selected');
 		$(this).parent().addClass('selected');			
@@ -126,11 +126,11 @@ function addHandler() {
 
 		if (data.search.length < 1) {
 			isValid = false;
-			$('#error').append('Search parameter missing <br />');
+			$('#error').append('Search parameter missing. ');
 		}
 		if (data.amount.length < 1) {
 			isValid = false;
-			$('#error').append('Number of tracks missing <br />');
+			$('#error').append('Number of tracks missing. ');
 		}
 
 		if (searchType == YEAR) {
@@ -138,15 +138,15 @@ function addHandler() {
 			data.yearTo = $('#yearTo').val();
 			if (data.yearFrom.length < 1) {
 				isValid = false;
-				$('#error').append('From year missing <br />');
+				$('#error').append('From year missing. ');
 			}
 			if (data.yearTo.length < 1) {
 				isValid = false;
-				$('#error').append('To year missing <br />');
+				$('#error').append('To year missing. ');
 			}
 			if (parseInt(data.yearTo) < parseInt(data.yearFrom)) {
 				isValid = false;
-				$('#error').append('From year is larger than To year <br />');
+				$('#error').append('From year is larger than To year. ');
 			}
 		}
 		if (isValid) {

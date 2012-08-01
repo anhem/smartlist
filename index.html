@@ -13,8 +13,10 @@
 	</head>
 	<body onload="sp = getSpotifyApi(1); am = sp.require('js/smartlist'); am.init();">
 		<h1 class="header">SmartList</h1>
-		<div id="error" class=container></div>
-		<div id="message" class=container></div>	
+		<div id="notifications" class="container">
+			<div id="error"></div>
+			<div id="message"></div>
+		</div>	
 		<div class="container">
 			<div id="searchCategory">
 				<h4>Category</h4>
@@ -37,11 +39,11 @@
 		<div class="container">
 			<div id="search">
 				<h4>Options</h4>
-				<input type="text" id="playlist" placeholder="Enter playlist name">
-				<input type="search" id="searchField" placeholder="Search">
-				<input type="number" id="amount" placeholder="No of tracks" min="1" max="100" >
-				<input type="number" id="yearFrom" placeholder="From" min="1">
-				<input type="number" id="yearTo" placeholder="To" min="1">
+				Playlist: <input type="text" id="playlist" placeholder="Enter playlist name">
+				Search: <input type="search" id="searchField" placeholder="Search">
+				Number of tracks: <input type="number" id="amount" placeholder="#" min="1" max="100" >
+				From year: <input type="number" id="yearFrom" min="1">
+				To year: <input type="number" id="yearTo" min="1">
 			</div>
 			<div>
 				<ul>
