@@ -23,8 +23,27 @@
 #rules td {
 	text-overflow: ellipsis; 
 	overflow: hidden;
+	white-space:nowrap;
 }
 
 #rules tr:nth-child(even) {
     background-color: #2E2E2E;
+}
+
+div {
+	clear:both;
+}
+
+li {
+	float: left;
+    line-height: 40px;
+    padding: 0 10px;
+}
+
+#searchCategory {
+	clear: both;
+}
+
+#searchType {
+	clear: both;
 }

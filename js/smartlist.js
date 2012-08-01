@@ -155,8 +155,7 @@ function removeHandler() {
 }
 
 function DisplayRules() {
-	$('#rules').empty();
-	$('#rules').append('<tr><th>Artist/Genre</th><th>Tracks</th><th>Category</th><th>Type</th><th></th></tr>');
+	$('#rules').find('tr:gt(0)').remove();
 	$(selectedArray).each(
 			function(i, selected) {
 				if (selected.searchType == YEAR) {
