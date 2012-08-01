@@ -285,7 +285,7 @@ function clearHandler() {
 	$('#clear a').click(function() {
 		genreArray = [];
 		selectedArray = [];
-		$('#rules').empty();
+		$('#rules').find('tr:gt(0)').remove();
 		$('#tracks').empty();
 	});
 }
