@@ -15,45 +15,51 @@
 		<h1 class="header">SmartList</h1>
 		<div id="error"></div>
 		<div id="message"></div>
-		<div id="searchCategory">
-			<h4>Category</h4>
-			<ul>
-				<li id="searchArtist"><a href="#">Artist</a></li>
-				<li id="searchWildcard"><a href="#">Artist Wildcard</a></li>
-				<li id="searchGenre"><a href="#">Genre</a></li>
-			</ul>		
+		<div class="container">
+			<div id="searchCategory">
+				<h4>Category</h4>
+				<ul>
+					<li id="searchArtist"><a href="#">Artist</a></li>
+					<li id="searchWildcard"><a href="#">Artist Wildcard</a></li>
+					<li id="searchGenre"><a href="#">Genre</a></li>
+				</ul>		
+			</div>
 		</div>
-		<div id="searchType">
-			<h4>Type</h4>
-			<ul>
-				<li id="searchPopularity"><a href="#">Popularity</a></li>
-				<li id="searchYear"><a href="#">Year</a></li>
-			</ul>
+		<div class="container">
+			<div id="searchType">
+				<h4>Type</h4>
+				<ul>
+					<li id="searchPopularity"><a href="#">Popularity</a></li>
+					<li id="searchYear"><a href="#">Year</a></li>
+				</ul>
+			</div>
 		</div>
-		<div id="search">
-				<input type="text" id="playlist" placeholder="Enter playlist name">
-				<input type="search" id="searchField" placeholder="Search">
-				<input type="number" id="amount" placeholder="No of tracks" min="1" max="100" >
-				<input type="number" id="yearFrom" placeholder="From" min="1">
-				<input type="number" id="yearTo" placeholder="To" min="1">
-				</div>
-		<div>
-			<ul>
-				<li id="add">
-					<a href="#">Add</a>
-				</li>
-				<li id="generate">
-					<a href="#">Generate</a>
-				</li>				
-				<li id="create">
-					<a href="#">Create Playlist</a>
-				</li>
-				<li id="clear">
-					<a href="#">Clear</a>
-				</li>				
-			</ul>
+		<div class="container">
+			<div id="search">
+					<input type="text" id="playlist" placeholder="Enter playlist name">
+					<input type="search" id="searchField" placeholder="Search">
+					<input type="number" id="amount" placeholder="No of tracks" min="1" max="100" >
+					<input type="number" id="yearFrom" placeholder="From" min="1">
+					<input type="number" id="yearTo" placeholder="To" min="1">
+					</div>
+			<div>
+				<ul>
+					<li id="add">
+						<a href="#">Add</a>
+					</li>
+					<li id="generate">
+						<a href="#">Generate</a>
+					</li>				
+					<li id="create">
+						<a href="#">Create Playlist</a>
+					</li>
+					<li id="clear">
+						<a href="#">Clear</a>
+					</li>				
+				</ul>
+			</div>
 		</div>
-		<div>
+		<div class="container">
 			<h3 class="header">Rules</h3>
 			<table id="rules">
 				<tr>
@@ -65,9 +71,9 @@
 				</tr>
 			</table>
 		</div>
-		<div>
+		<div class="container">
 			<h3 class="header">Tracks</h3>
-			<div id="tracks"></div>
+			<div id="tracks"><div class="empty">- empty - </div></div>
 		</div>
 	</body>
 </html>
