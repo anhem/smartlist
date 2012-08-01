@@ -114,7 +114,7 @@ function searchArtistHandler() {
 }
 
 function addHandler() {
-	$('#add a').click(function() {
+	$('#add button').click(function() {
 		$('#message').empty().hide();
 		$('#error').empty().hide();
 		var isValid = true;
@@ -203,7 +203,7 @@ function DisplayRules() {
 }
 
 function generateHandler() {
-	$('#generate a').click(function() {
+	$('#generate button').click(function() {
 		$('#message').empty().hide();
 		$('#error').empty().hide();
 		$('#tracks').empty();
@@ -218,7 +218,7 @@ function generateHandler() {
 }
 
 function createPlayListHandler() {
-	$('#create a').click(function() {
+	$('#create button').click(function() {
 		validateAndcreatePlayList();
 	});
 }
@@ -296,7 +296,7 @@ function createPlayList(selected, playlist) {
 }
 
 function clearHandler() {
-	$('#clear a').click(function() {
+	$('#clear button').click(function() {
 		genreArray = [];
 		selectedArray = [];
 		$('#rules').find('tr:gt(0)').remove();
