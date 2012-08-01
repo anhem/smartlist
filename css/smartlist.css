@@ -71,4 +71,8 @@ li {
 	color: #E41B17;
 }
 
+.selectors {
+	clear: none;
+	float: left;
+}
 

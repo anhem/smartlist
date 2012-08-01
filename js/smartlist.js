@@ -26,7 +26,6 @@ function init() {
 	categoryMenuHandler();
 	searchTypeMenuHandler();
 	clearHandler();
-	$('#playlist').val('SmartList');
 }
 
 function categoryMenuHandler() {
@@ -218,7 +217,7 @@ function generateHandler() {
 }
 
 function createPlayListHandler() {
-	$('#create button').click(function() {
+	$('#create').click(function() {
 		validateAndcreatePlayList();
 	});
 }
