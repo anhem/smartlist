@@ -306,5 +306,6 @@ function clearHandler() {
 		$('#tracks').empty();
 		$('#message').empty().hide();
 		$('#error').empty().hide();		
+		$('#message').append('Fields cleared').fadeIn();
 	});
 }
