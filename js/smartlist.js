@@ -29,22 +29,22 @@ function init() {
 }
 
 function categoryMenuHandler() {
-	$('#searchArtist a').parent().addClass('selected');
-	$('#searchArtist a').click(function() {
+	$('#searchArtist button').parent().addClass('selected');
+	$('#searchArtist button').click(function() {
 		searchArtistHandler();
 		searchCategory = ARTIST;
 		console.log($('#searchCategory li'));
 		$('#searchCategory li').removeClass('selected');
 		$(this).parent().addClass('selected');
 	});
-	$('#searchWildcard a').click(function() {
+	$('#searchWildcard button').click(function() {
 		searchArtistHandler();
 		searchCategory = WILDCARD;
 		console.log(searchCategory);
 		$('#searchCategory li').removeClass('selected');
 		$(this).parent().addClass('selected');
 	});
-	$('#searchGenre a').click(function() {
+	$('#searchGenre button').click(function() {
 		searchGenreHandler();
 		searchCategory = GENRE;
 		$('#searchCategory li').removeClass('selected');
@@ -55,15 +55,15 @@ function categoryMenuHandler() {
 function searchTypeMenuHandler() {
 	$('#yearFrom').prop('disabled', true);
 	$('#yearTo').prop('disabled', true);
-	$('#searchPopularity a').parent().addClass('selected');
-	$('#searchPopularity a').click(function() {
+	$('#searchPopularity button').parent().addClass('selected');
+	$('#searchPopularity button').click(function() {
 		$('#yearFrom').prop('disabled', true);
 		$('#yearTo').prop('disabled', true);
 		searchType = POPULARITY;
 		$('#searchType li').removeClass('selected');
 		$(this).parent().addClass('selected');		
 	});
-	$('#searchYear a').click(function() {
+	$('#searchYear button').click(function() {
 		$('#yearFrom').prop('disabled', false);
 		$('#yearTo').prop('disabled', false);
 		searchType = YEAR;

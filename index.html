@@ -19,25 +19,25 @@
 		</div>	
 		<div class="container">		
 			<div class="selectors">
+				<h4>Category</h4>
 				<div id="searchCategory">
-					<h4>Category</h4>
 					<ul>
-						<li id="searchArtist"><a href="#">Artist</a></li>
-						<li id="searchWildcard"><a href="#">Artist Wildcard</a></li>
-						<li id="searchGenre"><a href="#">Genre</a></li>
+						<li id="searchArtist"><button class="sp-button sp-flat">Artist</button></li>
+						<li id="searchWildcard"><button class="sp-button sp-flat">Artist Wildcard</button></li>
+						<li id="searchGenre"><button class="sp-button sp-flat">Genre</button></li>
 					</ul>		
 				</div>
+				<h4>Type</h4>
 				<div id="searchType">
-					<h4>Type</h4>
 					<ul>
-						<li id="searchPopularity"><a href="#">Popularity</a></li>
-						<li id="searchYear"><a href="#">Year</a></li>
+						<li id="searchPopularity"><button class="sp-button sp-flat">Popularity</button></li>
+						<li id="searchYear"><button class="sp-button sp-flat">Year</button></li>
 					</ul>
 				</div>
 			</div>
 			<div class="selectors">
+			<h4>Options</h4>
 				<div id="search">
-					<h4>Options</h4>
 					<table>
 					<tr><td>Search</td><td><input type="search" id="searchField" placeholder="Search"><br /></td></tr>
 					<tr><td>Number of tracks</td><td><input type="number" id="amount" placeholder="#" min="1" max="100" ></td></tr>
@@ -49,13 +49,13 @@
 			<div class="menu">
 				<ul>
 					<li id="add">
-						<button class="sp-button">Add</button>
+						<button class="sp-button">Add Rule</button>
 					</li>
 					<li id="generate">
-						<button class="sp-button">Generate</button>
+						<button class="sp-button">Generate List</button>
 					</li>				
 					<li id="clear">
-						<button class="sp-button">Clear all</button>
+						<button class="sp-button">Clear All</button>
 					</li>				
 				</ul>
 			</div>
@@ -76,7 +76,7 @@
 			<h3 class="header">Tracks</h3>
 			<div>
 				<input type="text" id="playlist" placeholder="Enter playlist name">
-				<button class="sp-button" id="create">Save playlist</button>
+				<button class="sp-button" id="create">Add as Playlist</button>
 			</div>		
 			<div id="tracks"></div>
 		</div>

@@ -14,11 +14,15 @@
 .selectors {
 	clear: none;
 	float: left;
-	padding: 0px 25px 20px 0px;
+}
+
+.selectors div {
+	margin: 10px;
 }
 
 .selected {
 	background-color: black;
+	border-radius: 4px;
 }
 
 .empty {
@@ -27,14 +31,12 @@
 	font-style: italic;
 }
 
-ul a {
-    line-height: 40px;
-    padding: 0 10px;
+ul  {
+	padding-bottom: 20px;
 }
 
 li {
 	float: left;
-	border-radius: 10px 10px 10px 10px;
 }
 
 #notifications {
@@ -42,7 +44,6 @@ li {
 }
 
 #rules {
-	
 	width: 100%;
 	table-layout:fixed;
 }
@@ -60,7 +61,6 @@ li {
 #rules tr:nth-child(odd) {
     background-color: #313131;
 }
-
 
 #searchCategory {
 	clear: both;
