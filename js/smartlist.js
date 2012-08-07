@@ -229,18 +229,24 @@ function createPlayListHandler() {
 function validateAndcreatePlayList() {
 	$('#message').empty().hide();
 	$('#error').empty().hide();
+	var isValid = true;
 	var plName = $('#playlist').val();
 	if (plName.length == 0) {
-		$('#error').append('Missing playlist name').fadeIn();
-	} else if (selectedArray.length == 0) {
-		$('#error').append('No rules added')
-				.fadeIn();
-	} else {
+		isValid = false;
+		$('#error').append('Playlist name missing. ');
+	} 
+	if (selectedArray.length == 0) {
+		isValid = false;
+		$('#error').append('No rules added. ');
+	} 
+	if (isValid) {
 		var playlist = new models.Playlist(plName);
 		$(selectedArray).each(function(i, selected) {
 			createPlayList(selected, playlist);
 		});
 		$('#message').append('Playlist created').fadeIn();
+	} else {
+		$('#error').fadeIn();	
 	}
 }
 
