@@ -306,12 +306,11 @@ function createPlayList(selected, playlist) {
 
 function clearHandler() {
 	$('#clear button').click(function() {
-		genreArray = [];
 		selectedArray = [];
 		$('#rules').find('tr:gt(0)').remove();
 		$('#tracks').empty();
 		$('#message').empty().hide();
 		$('#error').empty().hide();		
-		$('#message').append('Fields cleared').fadeIn();
+		$('#message').append('Rules cleared').fadeIn();
 	});
 }
