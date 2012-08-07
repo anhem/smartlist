@@ -180,7 +180,7 @@ function DisplayRules() {
 						+ '<td class="elementCategory">'
 						+ selected.searchCategory + '</td>'
 						+ '<td class="elementType">'
-						+ selected.yearFrom + '-' + selected.yearTo
+						+ selected.yearFrom + ' - ' + selected.yearTo
 						+ '</td>'
 						+ '<td class="remove"><a href="#">remove</a></td>'
 						+ '</tr>');
