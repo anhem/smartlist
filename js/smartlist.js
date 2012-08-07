@@ -103,7 +103,7 @@ function searchArtistHandler() {
 			search.localResults = models.LOCALSEARCHRESULTS.APPEND;
 			search.observe(models.EVENT.CHANGE, function() {
 				search.artists.forEach(function(artist) {
-					result.push(artist.name);
+					result.push(artist.name.decodeForText());
 				});
 				response(result);
 			});
