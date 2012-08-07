@@ -1,13 +1,20 @@
 {
 	"BundleType": "Application",
 	"BundleIdentifier": "smartlist",
+	"BundleVersion": "1.0",
 	"AppIcon": {
-		"36x18": "images/icon_36x18.png"
+		"36x18": "images/icon_36x18.png",
+		"64x64": "images/icon_64x64.png",
+		"128x128": "images/icon_128x128.png"
 	},
 	"AppName": {
 		"en": "SmartList"
 	},
+	"AppDescription": {
+		"en": "Discover new music by creating new playlists using sets of predefined rules"
+	},
 	"SupportedLanguages": [
 		"en"
-	]
+	],
+	"VendorIdentifier": "se.dynabyte"
 }
