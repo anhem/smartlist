@@ -2,7 +2,7 @@
 	"BundleType": "Application",
 	"BundleIdentifier": "smartlist",
 	"AppIcon": {
-		"36x18": "tutorial.png"
+		"36x18": "images/icon_36x18.png"
 	},
 	"AppName": {
 		"en": "SmartList"
